@@ -27,10 +27,17 @@
         </div>
         <div class="col-md-6 text-center position-relative">
             <div class="floating-image">
-                <img src="https://cdn.pixabay.com/photo/2018/09/18/11/19/music-3685431_1280.png" alt="Music Illustration" class="img-fluid" style="max-height: 400px;">
+                <img src="{{ url_for('static', filename='img/music-notes.png') }}" alt="Music Notes" class="img-fluid" style="max-height: 400px; width: auto;">
             </div>
             <div class="gradient-circle"></div>
             <div class="gradient-circle circle-2"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Jokes Section -->
+    <div class="row mt-4 mb-4">
+        <div class="col-12">
+            <div id="interactive-jokes"></div>
         </div>
     </div>
 
