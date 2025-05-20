@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Your {{ mood|capitalize }} Mood Playlist</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Here are some songs that match your current mood:</p>
+                
+                {% if tracks %}
+                    <div class="mb-4">
+                        <a href="{{ playlist_url }}" target="_blank" class="btn btn-success">
+                            <i class="fab fa-spotify me-1"></i> Open in Spotify
+                        </a>
+                        
+                        <form method="POST" action="{{ url_for('spotify.save_playlist', mood_id=mood_id) }}" class="d-inline ms-2">
+                            <input type="hidden" name="playlist_id" value="{{ playlist_url.split('/')[-1] }}">
+                            <button type="submit" class="btn btn-outline-primary">
+                                <i class="fas fa-save me-1"></i> Save to History
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="row">
+                        {% for track in tracks %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100 track-card">
+                                    {% if track.image_url %}
+                                        <img src="{{ track.image_url }}" class="card-img-top" alt="{{ track.name }}">
+                                    {% else %}
+                                        <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                                            <i class="fas fa-music fa-3x"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ track.name }}</h5>
+                                        <p class="card-text">{{ track.artist }}</p>
+                                        <p class="card-text text-muted">{{ track.album }}</p>
+                                    </div>
+                                    <div class="card-footer bg-white">
+                                        {% if track.preview_url %}
+                                            <audio controls class="w-100" style="height: 30px;">
+                                                <source src="{{ track.preview_url }}" type="audio/mpeg">
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                        {% else %}
+                                            <p class="text-muted small mb-0">Preview not available</p>
+                                        {% endif %}
+                                        <a href="{{ track.external_url }}" target="_blank" class="btn btn-sm btn-outline-success mt-2 w-100">
+                                            <i class="fab fa-spotify me-1"></i> Listen on Spotify
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        <p>We couldn't generate recommendations at this time. This might be because:</p>
+                        <ul>
+                            <li>You need to connect your Spotify account first</li>
+                            <li>There was an issue with the Spotify API</li>
+                        </ul>
+                        <a href="{{ url_for('spotify.spotify_login') }}" class="btn btn-success">
+                            <i class="fab fa-spotify me-1"></i> Connect Spotify
+                        </a>
+                    </div>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('mood.new_mood') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-plus me-1"></i> Record Another Mood
+                    </a>
+                    <a href="{{ url_for('mood.dashboard') }}" class="btn btn-outline-secondary ms-2">
+                        <i class="fas fa-home me-1"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .track-card {
+        transition: transform 0.2s;
+    }
+    .track-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %} 

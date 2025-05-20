@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row align-items-center py-5 hero-section">
+        <div class="col-md-6">
+            <h1 class="display-4 fw-bold gradient-text">Match Your Mood with Music</h1>
+            <p class="lead">Tell us how you're feeling, and we'll create the perfect playlist for your mood.</p>
+            <p class="mb-4">MoodMusic uses your current emotional state to generate personalized music recommendations through Spotify.</p>
+            <div class="d-grid gap-3 d-md-flex justify-content-md-start hero-buttons">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary px-4 me-md-2">
+                    <i class="fas fa-rocket me-1"></i>Get Started
+                </a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary px-4">
+                    <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                </a>
+            </div>
+            
+            <div class="mood-badges mt-4">
+                <span class="badge rounded-pill bg-primary me-2 mb-2">Happy</span>
+                <span class="badge rounded-pill bg-info me-2 mb-2">Calm</span>
+                <span class="badge rounded-pill bg-success me-2 mb-2">Energetic</span>
+                <span class="badge rounded-pill bg-danger me-2 mb-2">Angry</span>
+                <span class="badge rounded-pill bg-warning me-2 mb-2">Anxious</span>
+                <span class="badge rounded-pill bg-secondary me-2 mb-2">Sad</span>
+            </div>
+        </div>
+        <div class="col-md-6 text-center position-relative">
+            <div class="floating-image">
+                <img src="https://cdn.pixabay.com/photo/2018/09/18/11/19/music-3685431_1280.png" alt="Music Illustration" class="img-fluid" style="max-height: 400px;">
+            </div>
+            <div class="gradient-circle"></div>
+            <div class="gradient-circle circle-2"></div>
+        </div>
+    </div>
+
+    <!-- Guest Features Section -->
+    <div class="row mt-5 py-4 guest-features">
+        <div class="col-12 text-center mb-4">
+            <h2 class="gradient-text mb-3">Try Without Signing Up</h2>
+            <p class="lead text-muted mb-4">Experience these features as a guest</p>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="feature-mini-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h5 mb-0">Sample Playlists</h3>
+                    <a href="#" class="play-now-btn" data-playlist="happy">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <p class="text-muted">Listen to curated playlists for different moods</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="feature-mini-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h5 mb-0">Quick Mood Test</h3>
+                    <a href="#" class="play-now-btn" id="guest-mood-test">
+                        <i class="fas fa-brain"></i>
+                    </a>
+                </div>
+                <p class="text-muted">Get a basic mood analysis based on your preferences</p>
+                <div id="guest-mood-result"></div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="feature-mini-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h5 mb-0">Music Trivia</h3>
+                    <a href="#" class="play-now-btn" data-playlist="trivia">
+                        <i class="fas fa-question"></i>
+                    </a>
+                </div>
+                <p class="text-muted">Test your music knowledge with our fun trivia questions</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 py-4 features-section">
+        <div class="col-12 text-center mb-4">
+            <h2 class="gradient-text mb-3">What We Offer</h2>
+            <p class="lead text-muted">Experience the perfect harmony between your emotions and music</p>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-heart mood-icon"></i>
+                    </div>
+                    <h3 class="card-title h4 mb-3">Track Your Mood</h3>
+                    <p class="card-text">Record how you're feeling and see patterns in your emotional journey over time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon mb-4">
+                        <i class="fab fa-spotify mood-icon"></i>
+                    </div>
+                    <h3 class="card-title h4 mb-3">Discover Music</h3>
+                    <p class="card-text">Get personalized playlists based on your current mood through Spotify integration.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-history mood-icon"></i>
+                    </div>
+                    <h3 class="card-title h4 mb-3">Remember Favorites</h3>
+                    <p class="card-text">Save your favorite playlists to revisit them whenever you want.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4 py-4 bg-light rounded-5 p-4">
+        <div class="col-md-6">
+            <h2 class="gradient-text mb-4">How It Works</h2>
+            <ul class="how-it-works-list">
+                <li class="d-flex align-items-start mb-4">
+                    <div class="number-circle me-3">1</div>
+                    <div>
+                        <h5>Record your mood</h5>
+                        <p>Select how you're feeling right now from our mood options</p>
+                    </div>
+                </li>
+                <li class="d-flex align-items-start mb-4">
+                    <div class="number-circle me-3">2</div>
+                    <div>
+                        <h5>Connect with Spotify</h5>
+                        <p>Link your Spotify account to access personalized recommendations</p>
+                    </div>
+                </li>
+                <li class="d-flex align-items-start">
+                    <div class="number-circle me-3">3</div>
+                    <div>
+                        <h5>Enjoy your playlist</h5>
+                        <p>We'll create the perfect playlist for your current emotional state</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="spotify-device position-relative">
+                <div class="phone-frame p-3">
+                    <div class="phone-screen">
+                        <div class="loading mb-4"></div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="placeholder-circle me-3"></div>
+                            <div>
+                                <div class="placeholder-line"></div>
+                                <div class="placeholder-line-sm"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="placeholder-circle me-3"></div>
+                            <div>
+                                <div class="placeholder-line"></div>
+                                <div class="placeholder-line-sm"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="placeholder-circle me-3"></div>
+                            <div>
+                                <div class="placeholder-line"></div>
+                                <div class="placeholder-line-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-section {
+        min-height: 60vh;
+        position: relative;
+    }
+    
+    .floating-image {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .gradient-circle {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(110, 142, 251, 0.1), rgba(167, 119, 227, 0.1));
+        z-index: -1;
+        top: -10%;
+        right: 10%;
+        animation: pulse-circle 8s ease-in-out infinite;
+    }
+    
+    .circle-2 {
+        width: 200px;
+        height: 200px;
+        bottom: 10%;
+        left: 0;
+        animation-delay: 2s;
+    }
+    
+    @keyframes pulse-circle {
+        0% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.2); opacity: 0.1; }
+        100% { transform: scale(1); opacity: 0.3; }
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(110, 142, 251, 0.1), rgba(167, 119, 227, 0.1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .number-circle {
+        min-width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    
+    .how-it-works-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .phone-frame {
+        width: 280px;
+        height: 500px;
+        background: linear-gradient(135deg, #232526, #414345);
+        border-radius: 30px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    
+    .phone-screen {
+        background: #1a1a1a;
+        border-radius: 20px;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .placeholder-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        opacity: 0.6;
+    }
+    
+    .placeholder-line {
+        height: 12px;
+        width: 180px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        margin-bottom: 6px;
+    }
+    
+    .placeholder-line-sm {
+        height: 8px;
+        width: 120px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 8px 15px;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+        animation: fade-in 0.5s ease-out forwards;
+        animation-delay: calc(var(--badge-index, 0) * 0.2s);
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    
+    .badge:nth-child(1) { --badge-index: 1; }
+    .badge:nth-child(2) { --badge-index: 2; }
+    .badge:nth-child(3) { --badge-index: 3; }
+    .badge:nth-child(4) { --badge-index: 4; }
+    .badge:nth-child(5) { --badge-index: 5; }
+    .badge:nth-child(6) { --badge-index: 6; }
+    
+    @keyframes fade-in {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .badge:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .glass-card {
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .features-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .bg-light {
+        background: linear-gradient(135deg, rgba(245, 247, 250, 0.8), rgba(226, 229, 239, 0.8)) !important;
+    }
+    
+    .rounded-5 {
+        border-radius: 1.5rem !important;
+    }
+</style>
+{% endblock %} 

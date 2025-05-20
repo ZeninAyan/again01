@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Features - MoodMusic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-music me-2"></i>MoodMusic
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/static/guest-features.html">
+                            <i class="fas fa-headphones me-1"></i>Guest Features
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/static/contact.html">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            <i class="fas fa-user-plus me-1"></i>Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="gradient-text mb-3">Guest Features</h1>
+                <p class="lead">Experience MoodMusic without signing up</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Quick Mood Test</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Take a quick test to determine your current mood. Select which statements resonate with you the most:</p>
+                        
+                        <form id="mood-test-form">
+                            <div class="mb-4">
+                                <label class="form-label">How do you feel about your energy level right now?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="energy" id="energy-high" value="high">
+                                    <label class="form-check-label" for="energy-high">I feel energetic and active</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="energy" id="energy-medium" value="medium">
+                                    <label class="form-check-label" for="energy-medium">My energy is at a moderate level</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="energy" id="energy-low" value="low">
+                                    <label class="form-check-label" for="energy-low">I'm feeling tired or low energy</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">How would you describe your happiness level?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="happiness" id="happiness-high" value="high">
+                                    <label class="form-check-label" for="happiness-high">I'm feeling happy and joyful</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="happiness" id="happiness-medium" value="medium">
+                                    <label class="form-check-label" for="happiness-medium">I'm feeling okay, neutral</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="happiness" id="happiness-low" value="low">
+                                    <label class="form-check-label" for="happiness-low">I'm feeling sad or down</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">How focused are you right now?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="focus" id="focus-high" value="high">
+                                    <label class="form-check-label" for="focus-high">I'm very focused and productive</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="focus" id="focus-medium" value="medium">
+                                    <label class="form-check-label" for="focus-medium">Somewhat focused, slightly distracted</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="focus" id="focus-low" value="low">
+                                    <label class="form-check-label" for="focus-low">I'm feeling scattered and unfocused</label>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="button" id="guest-mood-test" class="btn btn-primary">Analyze My Mood</button>
+                            </div>
+                            
+                            <div id="guest-mood-result" class="mt-4"></div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Sample Playlists</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-4">Listen to these sample mood-based playlists:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-mini-card">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h3 class="h5 mb-0">Happy Vibes</h3>
+                                        <a href="#" class="play-now-btn" data-playlist="happy">
+                                            <i class="fas fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <p class="text-muted mb-2">Upbeat songs to boost your mood</p>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-primary me-2">Pop</span>
+                                        <span class="badge bg-info me-2">Upbeat</span>
+                                        <span class="badge bg-success">Dance</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-mini-card">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h3 class="h5 mb-0">Calm & Relax</h3>
+                                        <a href="#" class="play-now-btn" data-playlist="calm">
+                                            <i class="fas fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <p class="text-muted mb-2">Peaceful melodies for relaxation</p>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-primary me-2">Ambient</span>
+                                        <span class="badge bg-info me-2">Chill</span>
+                                        <span class="badge bg-success">Acoustic</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-mini-card">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h3 class="h5 mb-0">Focus Zone</h3>
+                                        <a href="#" class="play-now-btn" data-playlist="focus">
+                                            <i class="fas fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <p class="text-muted mb-2">Concentration-enhancing tracks</p>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-primary me-2">Study</span>
+                                        <span class="badge bg-info me-2">Instrumental</span>
+                                        <span class="badge bg-success">Work</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-mini-card">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h3 class="h5 mb-0">Energy Boost</h3>
+                                        <a href="#" class="play-now-btn" data-playlist="energy">
+                                            <i class="fas fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <p class="text-muted mb-2">High-energy tracks to power up</p>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge bg-primary me-2">Workout</span>
+                                        <span class="badge bg-info me-2">Electronic</span>
+                                        <span class="badge bg-success">Dance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Why Sign Up?</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                <div>
+                                    <strong>Personalized Recommendations</strong>
+                                    <p class="text-muted mb-0">Get music that perfectly matches your specific mood</p>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                <div>
+                                    <strong>Spotify Integration</strong>
+                                    <p class="text-muted mb-0">Connect your Spotify account for seamless listening</p>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                <div>
+                                    <strong>Mood Tracking</strong>
+                                    <p class="text-muted mb-0">Track your mood changes over time</p>
+                                </div>
+                            </li>
+                            <li class="mb-3 d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                <div>
+                                    <strong>Save Favorites</strong>
+                                    <p class="text-muted mb-0">Save and revisit your favorite playlists anytime</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="d-grid mt-4">
+                            <a href="/register" class="btn btn-primary">Sign Up Now - It's Free!</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="h4 mb-0">Music Trivia</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3">Did you know?</p>
+                        <div id="trivia-container">
+                            <div class="mb-3 p-3 rounded bg-light">
+                                <p><strong>Music and Mood</strong></p>
+                                <p class="mb-0">Listening to music can reduce anxiety by up to 65%, according to research.</p>
+                            </div>
+                            <div class="d-grid">
+                                <button id="trivia-btn" class="btn btn-outline-primary">Show Another Fact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-white py-4 mt-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="mb-3">MoodMusic</h5>
+                    <p class="text-white-50 mb-0">Personalized music for every mood</p>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="mb-3">Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="/static/about.html" class="text-white-50">About</a></li>
+                        <li><a href="/static/privacy.html" class="text-white-50">Privacy Policy</a></li>
+                        <li><a href="/static/terms.html" class="text-white-50">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="mb-3">Contact</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="text-white-50"><i class="fas fa-phone me-2"></i>+91 6202039811</li>
+                        <li><a href="/static/contact.html" class="text-white-50">
+                            <i class="fas fa-envelope me-2"></i>Get in touch</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">Connect</h5>
+                    <div class="social-icons">
+                        <a href="https://instagram.com/peace_in_solitary" target="_blank" class="text-white me-2" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white me-2" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-white me-2" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3 bg-light opacity-25">
+            <p class="mb-0">&copy; 2025 MoodMusic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trivia functionality
+            const triviaBtn = document.getElementById('trivia-btn');
+            const triviaFacts = [
+                "<strong>Music and Memory</strong><br>Music can trigger powerful memories, sometimes even in Alzheimer's patients who struggle with other forms of recall.",
+                "<strong>Spotify Stats</strong><br>The average Spotify user listens to around 25 hours of music each month.",
+                "<strong>Mood Boosting</strong><br>Listening to music releases dopamine, the 'feel good' neurotransmitter in our brains.",
+                "<strong>Hidden Talent</strong><br>Only about 1 in 10,000 people has what is known as 'perfect pitch' - the ability to identify or sing any note on command.",
+                "<strong>Music Therapy</strong><br>Music therapy is used in hospitals to reduce pain, anxiety, and blood pressure.",
+                "<strong>Universal Language</strong><br>Certain emotional responses to music appear to be universal across cultures."
+            ];
+            
+            let currentFact = 0;
+            
+            if (triviaBtn) {
+                triviaBtn.addEventListener('click', function() {
+                    currentFact = (currentFact + 1) % triviaFacts.length;
+                    const triviaContainer = document.querySelector('#trivia-container .bg-light');
+                    
+                    // Add fade-out effect
+                    triviaContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        triviaContainer.innerHTML = triviaFacts[currentFact];
+                        // Add fade-in effect
+                        triviaContainer.style.opacity = '1';
+                    }, 300);
+                });
+            }
+            
+            // Mood analysis functionality
+            const moodTestBtn = document.getElementById('guest-mood-test');
+            if (moodTestBtn) {
+                moodTestBtn.addEventListener('click', function() {
+                    const moodResult = document.getElementById('guest-mood-result');
+                    
+                    // Check if all questions are answered
+                    const energyLevel = document.querySelector('input[name="energy"]:checked');
+                    const happinessLevel = document.querySelector('input[name="happiness"]:checked');
+                    const focusLevel = document.querySelector('input[name="focus"]:checked');
+                    
+                    if (!energyLevel || !happinessLevel || !focusLevel) {
+                        moodResult.innerHTML = '<div class="alert alert-warning">Please answer all questions to get your mood analysis!</div>';
+                        return;
+                    }
+                    
+                    // Show loading animation
+                    moodResult.innerHTML = '<div class="loading mb-3"></div><p class="text-center">Analyzing your responses...</p>';
+                    
+                    // Simulate processing
+                    setTimeout(() => {
+                        // Determine mood based on answers
+                        let mood = '';
+                        
+                        if (energyLevel.value === 'high' && happinessLevel.value === 'high') {
+                            mood = 'happy';
+                        } else if (energyLevel.value === 'high' && happinessLevel.value !== 'high') {
+                            mood = 'energetic';
+                        } else if (energyLevel.value === 'low' && happinessLevel.value === 'low') {
+                            mood = 'sad';
+                        } else if (focusLevel.value === 'high') {
+                            mood = 'focused';
+                        } else if (energyLevel.value === 'low' && happinessLevel.value !== 'low') {
+                            mood = 'calm';
+                        } else {
+                            mood = 'balanced';
+                        }
+                        
+                        // Display result
+                        moodResult.innerHTML = `
+                            <div class="alert alert-info">
+                                <h5>Your current mood seems to be: <strong>${mood.charAt(0).toUpperCase() + mood.slice(1)}</strong></h5>
+                                <p>Sign up to get personalized music recommendations for your mood!</p>
+                                <a href="/register" class="btn btn-primary btn-sm mt-2">Create an Account</a>
+                            </div>
+                        `;
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

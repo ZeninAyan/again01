@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Your Mood History</h4>
+                <a href="{{ url_for('mood.new_mood') }}" class="btn btn-light btn-sm">
+                    <i class="fas fa-plus me-1"></i> New Mood
+                </a>
+            </div>
+            <div class="card-body">
+                {% if moods.items %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Mood</th>
+                                    <th>Comment</th>
+                                    <th>Playlist</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mood in moods.items %}
+                                <tr>
+                                    <td>{{ mood.formatted_date }}</td>
+                                    <td>
+                                        {% if mood.mood == 'happy' %}
+                                            <i class="fas fa-smile text-warning me-1"></i>
+                                        {% elif mood.mood == 'sad' %}
+                                            <i class="fas fa-frown text-primary me-1"></i>
+                                        {% elif mood.mood == 'energetic' %}
+                                            <i class="fas fa-bolt text-danger me-1"></i>
+                                        {% elif mood.mood == 'calm' %}
+                                            <i class="fas fa-water text-info me-1"></i>
+                                        {% elif mood.mood == 'anxious' %}
+                                            <i class="fas fa-exclamation-circle text-warning me-1"></i>
+                                        {% elif mood.mood == 'angry' %}
+                                            <i class="fas fa-fire text-danger me-1"></i>
+                                        {% elif mood.mood == 'romantic' %}
+                                            <i class="fas fa-heart text-danger me-1"></i>
+                                        {% elif mood.mood == 'focused' %}
+                                            <i class="fas fa-bullseye text-primary me-1"></i>
+                                        {% elif mood.mood == 'relaxed' %}
+                                            <i class="fas fa-couch text-success me-1"></i>
+                                        {% elif mood.mood == 'melancholic' %}
+                                            <i class="fas fa-cloud-rain text-secondary me-1"></i>
+                                        {% endif %}
+                                        {{ mood.mood|capitalize }}
+                                    </td>
+                                    <td>{{ mood.comment or '-' }}</td>
+                                    <td>
+                                        {% if mood.playlist_id %}
+                                            <a href="https://open.spotify.com/playlist/{{ mood.playlist_id }}" target="_blank" class="btn btn-sm btn-success">
+                                                <i class="fab fa-spotify me-1"></i> Open
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ url_for('spotify.recommendations', mood_id=mood.id) }}" class="btn btn-sm btn-outline-primary">
+                                                Get Recommendations
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Mood history pagination">
+                        <ul class="pagination justify-content-center">
+                            {% if moods.has_prev %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('mood.mood_history', page=moods.prev_num) }}">Previous</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">Previous</span>
+                                </li>
+                            {% endif %}
+                            
+                            {% for page_num in moods.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                                {% if page_num %}
+                                    {% if page_num == moods.page %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ page_num }}</span>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ url_for('mood.mood_history', page=page_num) }}">{{ page_num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if moods.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('mood.mood_history', page=moods.next_num) }}">Next</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">Next</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p>You haven't recorded any moods yet.</p>
+                        <a href="{{ url_for('mood.new_mood') }}" class="btn btn-primary">Record Your First Mood</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

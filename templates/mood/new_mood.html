@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">How are you feeling today?</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="mb-4">
+                        <h5>{{ form.mood.label(class="form-label") }}</h5>
+                        <div class="row mood-selector">
+                            {% for value, label in form.mood.choices %}
+                            <div class="col-6 col-sm-4 col-md-3 mb-3">
+                                <div class="form-check mood-option">
+                                    <input class="form-check-input" type="radio" name="{{ form.mood.name }}" id="mood_{{ value }}" value="{{ value }}" {% if form.mood.data == value %}checked{% endif %}>
+                                    <label class="form-check-label mood-label" for="mood_{{ value }}">
+                                        {% if value == 'happy' %}
+                                            <i class="fas fa-smile text-warning"></i>
+                                        {% elif value == 'sad' %}
+                                            <i class="fas fa-frown text-primary"></i>
+                                        {% elif value == 'energetic' %}
+                                            <i class="fas fa-bolt text-danger"></i>
+                                        {% elif value == 'calm' %}
+                                            <i class="fas fa-water text-info"></i>
+                                        {% elif value == 'anxious' %}
+                                            <i class="fas fa-exclamation-circle text-warning"></i>
+                                        {% elif value == 'angry' %}
+                                            <i class="fas fa-fire text-danger"></i>
+                                        {% elif value == 'romantic' %}
+                                            <i class="fas fa-heart text-danger"></i>
+                                        {% elif value == 'focused' %}
+                                            <i class="fas fa-bullseye text-primary"></i>
+                                        {% elif value == 'relaxed' %}
+                                            <i class="fas fa-couch text-success"></i>
+                                        {% elif value == 'melancholic' %}
+                                            <i class="fas fa-cloud-rain text-secondary"></i>
+                                        {% else %}
+                                            <i class="fas fa-question-circle"></i>
+                                        {% endif %}
+                                        <span>{{ label }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% for error in form.mood.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.comment.label(class="form-label") }}
+                        {{ form.comment(class="form-control", rows=3) }}
+                        {% for error in form.comment.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .mood-selector {
+        margin-top: 1rem;
+    }
+    .mood-option {
+        text-align: center;
+        padding: 0.5rem;
+    }
+    .mood-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
+    .mood-label:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+    .mood-label i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .form-check-input:checked + .mood-label {
+        background-color: rgba(0, 123, 255, 0.2);
+        font-weight: bold;
+    }
+</style>
+{% endblock %} 
