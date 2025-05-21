@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add navbar scroll effect
     setupNavbarScroll();
     
-    // Show welcome message
-    showWelcomeMessage();
-    
     // Setup random quotes display
     setupQuotesDisplay();
     
@@ -38,24 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup quick mood test on homepage for everyone
     setupQuickMoodTest();
 });
-
-// Show welcome message on first load
-function showWelcomeMessage() {
-    const welcomeContainer = document.createElement('div');
-    welcomeContainer.classList.add('welcome-popup');
-    welcomeContainer.innerHTML = '<h3>HOW U DOINN BRUH?</h3>';
-    document.body.appendChild(welcomeContainer);
-    
-    // Show message for 1 second then fade out with growing animation (changed from 2 sec)
-    setTimeout(() => {
-        welcomeContainer.classList.add('fadeout');
-        setTimeout(() => {
-            if (welcomeContainer.parentNode === document.body) {
-                document.body.removeChild(welcomeContainer);
-            }
-        }, 800);
-    }, 1000); // Changed from 2000 to 1000 ms
-}
 
 // Initialize Bootstrap tooltips
 function initializeTooltips() {
@@ -355,8 +334,8 @@ function setupQuotesDisplay() {
     // Display first quote immediately
     displayRandomQuote();
     
-    // Then display a new quote every 10 seconds exactly
-    setInterval(displayRandomQuote, 10000);
+    // Then display a new quote every 20 seconds (changed from 10 seconds)
+    setInterval(displayRandomQuote, 20000);
 }
 
 // Setup guest features functionality

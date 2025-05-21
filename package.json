@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "MoodMusic is a Flask-based web application that recommends music based on your current mood using the Spotify API. The app allows users to record their moods, get personalized music recommendations, and keep track of their mood history.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeninAyan/again01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeninAyan/again01/issues"
+  },
+  "homepage": "https://github.com/ZeninAyan/again01#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

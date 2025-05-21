@@ -9,19 +9,22 @@ MoodMusic is a Flask-based web application that recommends music based on your c
 - Get personalized Spotify playlist recommendations based on your mood
 - Save playlists to your mood history
 - View your mood history and associated playlists
+- Public accessibility through ngrok tunneling
 
 ## Technologies Used
 
 - **Backend**: Flask, SQLAlchemy, Flask-Login, Flask-WTF
 - **Frontend**: HTML, CSS, JavaScript, Bootstrap 5
-- **Database**: SQLite (default), easily configurable for other databases
+- **Database**: PostgreSQL (primary), SQLite (fallback)
 - **API Integration**: Spotify API via Spotipy
+- **Tunneling**: ngrok for public access
 
 ## Setup Instructions
 
 ### Prerequisites
 
 - Python 3.7+
+- PostgreSQL database server
 - Spotify Developer Account (for API credentials)
 
 ### Installation
@@ -43,34 +46,76 @@ MoodMusic is a Flask-based web application that recommends music based on your c
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the project root with the following variables:
+### PostgreSQL Setup
+
+1. Make sure PostgreSQL is installed and running on your system.
+2. Create a database for the application:
+   ```
+   createdb musicapp
+   ```
+   
+   Alternatively, you can use pgAdmin or another PostgreSQL client to create the database.
+
+3. Run the configuration tool to set up your database connection:
+   ```
+   python configure_db.py
+   ```
+   
+   This interactive tool will help you configure your PostgreSQL connection and create a `.env` file.
+
+### Alternative Manual Configuration
+
+If you prefer to configure the database manually:
+
+1. Create a `.env` file in the project root with the following variables:
    ```
    SECRET_KEY=your_secret_key
-   DATABASE_URI=sqlite:///app.db
+   DB_USER=your_postgres_username
+   DB_PASSWORD=your_postgres_password
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=musicapp
+   DATABASE_URI=postgresql://your_postgres_username:your_postgres_password@localhost:5432/musicapp
    SPOTIFY_CLIENT_ID=your_spotify_client_id
    SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
    SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
    ```
 
-5. Initialize the database:
+### Database Initialization
+
+1. Initialize the database migrations:
    ```
    flask db init
    flask db migrate -m "Initial migration"
    flask db upgrade
    ```
 
-6. Run the application:
+2. Run the application:
    ```
-   flask run
+   python run.py
    ```
 
-7. Access the application at http://localhost:5000
+3. Access the application at http://localhost:5000
+
+## Ngrok Public URL Setup
+
+The application can be made publicly accessible using ngrok tunneling:
+
+1. Run the application with ngrok enabled:
+   ```
+   python run_with_ngrok.py
+   ```
+
+2. The console will display the public URL where your app is accessible.
+
+3. This URL can be shared with anyone to access your application from anywhere.
 
 ## Spotify API Setup
 
 1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)
 2. Create a new application
-3. Set the redirect URI to `http://localhost:5000/callback`
+3. Set the redirect URI to match your ngrok URL plus `/callback` (when using ngrok)
+   or use `http://localhost:5000/callback` (when running locally)
 4. Copy your Client ID and Client Secret to the `.env` file
 
 ## Project Structure
