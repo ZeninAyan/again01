@@ -6,3 +6,4 @@
 2025-05-21 20:28:51,846 INFO: Database tables created or verified [in C:\DevSetup\musicapp\backend\app.py:34]
 2025-05-21 20:28:53,442 INFO: MusicApp startup [in C:\DevSetup\musicapp\backend\logging_config.py:63]
 2025-05-21 20:28:53,449 INFO: Database tables created or verified [in C:\DevSetup\musicapp\backend\app.py:34]
+2025-05-21 21:03:48,382 INFO: MusicApp startup [in C:\DevSetup\musicapp\backend\logging_config.py:63]

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Mood Tracker | {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mb-4">Mood Tracker</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">How are you feeling today?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Record your current mood and get personalized music recommendations.</p>
+                        <a href="{{ url_for('mood.create') }}" class="btn btn-primary">Record Mood</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Your Mood History</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">View your mood history and track how you've been feeling over time.</p>
+                        <a href="{{ url_for('mood.history') }}" class="btn btn-outline-primary">View History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Mood Statistics</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">This section will show statistics about your mood patterns over time.</p>
+                <div class="alert alert-info">
+                    <p class="mb-0">Start recording your moods to see your statistics and patterns!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

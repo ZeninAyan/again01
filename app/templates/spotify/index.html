@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Spotify Integration | {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mb-4">Spotify Integration</h1>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Connect Your Spotify Account</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Connect your Spotify account to get personalized music recommendations based on your mood.</p>
+                        
+                        {% if 'spotify_token' not in session %}
+                            <a href="{{ url_for('spotify.authorize') }}" class="btn btn-success">
+                                <i class="bi bi-spotify"></i> Connect to Spotify
+                            </a>
+                        {% else %}
+                            <div class="alert alert-success">
+                                <p class="mb-0">Your Spotify account is connected!</p>
+                            </div>
+                            <a href="{{ url_for('spotify.profile') }}" class="btn btn-primary">View Your Spotify Profile</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Benefits</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Get music recommendations based on your mood</li>
+                            <li class="list-group-item">Create mood-based playlists</li>
+                            <li class="list-group-item">Save playlists to your Spotify account</li>
+                            <li class="list-group-item">Discover new music that matches how you feel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">How It Works</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="h1 text-primary mb-3">1</div>
+                        <h5>Connect Spotify</h5>
+                        <p>Connect your Spotify account with our app.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="h1 text-primary mb-3">2</div>
+                        <h5>Record Your Mood</h5>
+                        <p>Tell us how you're feeling today.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="h1 text-primary mb-3">3</div>
+                        <h5>Get Recommendations</h5>
+                        <p>Receive music that matches your mood.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
