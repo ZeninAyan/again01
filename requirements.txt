@@ -32,3 +32,13 @@ urllib3
 Werkzeug
 WTForms
 pyngrok
+
+# Testing dependencies
+pytest
+pytest-flask
+flake8
+coverage
+
+# Production dependencies
+gunicorn
+supervisor

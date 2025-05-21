@@ -5,6 +5,7 @@ from routes.auth import auth_bp
 from routes.mood import mood_bp
 from routes.spotify import spotify_bp
 from models.user import User
+from logging_config import configure_logging
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -14,6 +15,9 @@ def create_app(config_class=Config):
     db.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
+    
+    # Configure logging
+    configure_logging(app)
     
     # Register blueprints
     app.register_blueprint(auth_bp)
@@ -27,6 +31,7 @@ def create_app(config_class=Config):
     # Create tables if they don't exist
     with app.app_context():
         db.create_all()
+        app.logger.info('Database tables created or verified')
     
     return app
 
