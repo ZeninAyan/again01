@@ -7,6 +7,8 @@ import pytest
 from app import create_app
 from extensions import db
 from config import Config
+from app.models.user import User
+from app.models.mood import MoodEntry
 
 
 class TestConfig(Config):
@@ -28,7 +30,22 @@ def app():
     # Create the database and load test data
     with app.app_context():
         db.create_all()
-        # You can add test data initialization here
+        
+        # Create test user
+        user = User(username='testuser', email='test@example.com')
+        user.set_password('Password123')
+        db.session.add(user)
+        
+        # Create sample mood
+        mood = MoodEntry(
+            user_id=1,
+            mood='happy',
+            intensity=8,
+            comment='Feeling good!'
+        )
+        db.session.add(mood)
+        
+        db.session.commit()
     
     yield app
     
@@ -65,4 +82,13 @@ def auth(client):
         def logout(self):
             return self._client.get('/logout')
 
-    return AuthActions(client) 
+    return AuthActions(client)
+
+
+@pytest.fixture
+def auth_client(client):
+    client.post('/auth/login', data={
+        'username': 'testuser',
+        'password': 'Password123'
+    }, follow_redirects=True)
+    return client 

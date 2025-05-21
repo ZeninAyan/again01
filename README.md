@@ -1,41 +1,44 @@
-# MoodMusic - Mood-Based Music Recommendation App
+# Music Mood App
 
-MoodMusic is a Flask-based web application that recommends music based on your current mood using the Spotify API. The app allows users to record their moods, get personalized music recommendations, and keep track of their mood history.
+A Flask-based web application that helps users discover music based on their current mood using Spotify integration.
 
 ## Features
 
-- User authentication (register, login, logout)
-- Record your current mood with optional comments
-- Get personalized Spotify playlist recommendations based on your mood
-- Save playlists to your mood history
-- View your mood history and associated playlists
-- Public accessibility through ngrok tunneling
+- **User Authentication**: Secure registration and login system
+- **Mood Analysis**: Track your mood and find music that matches it
+- **Spotify Integration**: Seamlessly connect with your Spotify account to access millions of songs
+- **Personalized Recommendations**: Get music recommendations based on your mood history
+- **Playlist Management**: Create and save playlists to enjoy later or share with friends
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
 
-## Technologies Used
+## Technology Stack
 
-- **Backend**: Flask, SQLAlchemy, Flask-Login, Flask-WTF
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap 5
-- **Database**: PostgreSQL (primary), SQLite (fallback)
-- **API Integration**: Spotify API via Spotipy
-- **Tunneling**: ngrok for public access
+- **Backend**: Python 3.11+, Flask 3.1.1
+- **Database**: PostgreSQL, SQLAlchemy
+- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
+- **Authentication**: Flask-Login
+- **API Integration**: Spotify Web API
+- **Testing**: Pytest, Coverage
+- **CI/CD**: GitHub Actions
+- **Deployment**: Docker, Heroku
 
-## Setup Instructions
+## Installation
 
 ### Prerequisites
 
-- Python 3.7+
-- PostgreSQL database server
-- Spotify Developer Account (for API credentials)
+- Python 3.11+
+- PostgreSQL
+- Spotify Developer Account
 
-### Installation
+### Local Development Setup
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/moodmusic.git
-   cd moodmusic
+   git clone https://github.com/yourusername/musicapp.git
+   cd musicapp/backend
    ```
 
-2. Create a virtual environment and activate it:
+2. Create and activate a virtual environment:
    ```
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -46,202 +49,104 @@ MoodMusic is a Flask-based web application that recommends music based on your c
    pip install -r requirements.txt
    ```
 
-### PostgreSQL Setup
-
-1. Make sure PostgreSQL is installed and running on your system.
-2. Create a database for the application:
-   ```
-   createdb musicapp
-   ```
-   
-   Alternatively, you can use pgAdmin or another PostgreSQL client to create the database.
-
-3. Run the configuration tool to set up your database connection:
-   ```
-   python configure_db.py
-   ```
-   
-   This interactive tool will help you configure your PostgreSQL connection and create a `.env` file.
-
-### Alternative Manual Configuration
-
-If you prefer to configure the database manually:
-
-1. Create a `.env` file in the project root with the following variables:
+4. Set up environment variables in a `.env` file:
    ```
    SECRET_KEY=your_secret_key
-   DB_USER=your_postgres_username
-   DB_PASSWORD=your_postgres_password
+   DB_USER=postgres
+   DB_PASSWORD=your_password
    DB_HOST=localhost
    DB_PORT=5432
    DB_NAME=musicapp
-   DATABASE_URI=postgresql://your_postgres_username:your_postgres_password@localhost:5432/musicapp
    SPOTIFY_CLIENT_ID=your_spotify_client_id
    SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-   SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
+   SPOTIFY_REDIRECT_URI=http://localhost:5000/spotify/callback
    ```
 
-### Database Initialization
-
-1. Initialize the database migrations:
+5. Initialize the database:
    ```
    flask db init
    flask db migrate -m "Initial migration"
    flask db upgrade
    ```
 
-2. Run the application:
+6. Run the application:
    ```
-   python run.py
-   ```
-
-3. Access the application at http://localhost:5000
-
-## Ngrok Public URL Setup
-
-The application can be made publicly accessible using ngrok tunneling:
-
-1. Run the application with ngrok enabled:
-   ```
-   python run_with_ngrok.py
+   flask run
    ```
 
-2. The console will display the public URL where your app is accessible.
-
-3. This URL can be shared with anyone to access your application from anywhere.
-
-## Spotify API Setup
-
-1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)
-2. Create a new application
-3. Set the redirect URI to match your ngrok URL plus `/callback` (when using ngrok)
-   or use `http://localhost:5000/callback` (when running locally)
-4. Copy your Client ID and Client Secret to the `.env` file
-
-## Improvements & Next Steps
-
-### Add Logging
-- Enhanced logging is already implemented in `config.py` using Python's built-in logging module
-- For more comprehensive logging:
-  ```python
-  # Example of advanced logging setup
-  import logging
-  from logging.handlers import RotatingFileHandler
-  
-  # Setup file logging with rotation
-  file_handler = RotatingFileHandler('logs/musicapp.log', maxBytes=10240, backupCount=10)
-  file_handler.setFormatter(logging.Formatter(
-      '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-  ))
-  file_handler.setLevel(logging.INFO)
-  app.logger.addHandler(file_handler)
-  ```
-
-### Write Tests
-- Create a `tests/` directory with the following structure:
-  ```
-  tests/
-  ├── __init__.py
-  ├── conftest.py           # pytest fixtures
-  ├── test_models.py        # unit tests for database models
-  ├── test_routes.py        # integration tests for routes
-  └── test_services.py      # unit tests for service functions
-  ```
-- Install testing dependencies:
-  ```
-  pip install pytest pytest-flask
-  ```
-- Run tests with: `pytest -v`
-
-### Virtual Environment
-- Already implemented with `venv`
-- Consider using `pipenv` or `poetry` for more advanced dependency management:
-  ```
-  pip install pipenv
-  pipenv install  # Creates Pipfile and Pipfile.lock
-  ```
-
-### CI/CD Setup
-- Add GitHub Actions workflow file at `.github/workflows/ci.yml`:
-  ```yaml
-  name: MusicApp CI
-
-  on:
-    push:
-      branches: [ main ]
-    pull_request:
-      branches: [ main ]
-
-  jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Set up Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: '3.x'
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-            pip install pytest pytest-flask
-        - name: Test with pytest
-          run: |
-            pytest
-  ```
+7. The application should now be running at `http://localhost:5000`
 
 ## Project Structure
 
+The project follows a modular structure using Flask Blueprints:
+
 ```
-moodmusic/
-├── app.py                  # Main application entry point
-├── config.py               # Configuration settings
-├── extensions.py           # Flask extensions initialization
-├── forms/                  # WTForms definitions
-│   ├── __init__.py
-│   ├── auth.py             # Authentication forms
-│   └── mood.py             # Mood entry forms
-├── models/                 # Database models
-│   ├── __init__.py
-│   ├── user.py             # User model
-│   └── mood.py             # Mood entry model
-├── routes/                 # Route definitions
-│   ├── __init__.py
-│   ├── auth.py             # Authentication routes
-│   ├── mood.py             # Mood-related routes
-│   └── spotify.py          # Spotify integration routes
-├── services/               # Business logic
-│   ├── __init__.py
-│   └── spotify_service.py  # Spotify API integration
-├── static/                 # Static assets
-│   ├── css/
-│   │   └── style.css       # Custom styles
-│   └── js/
-│       └── script.js       # Custom JavaScript
-└── templates/              # Jinja2 templates
-    ├── base.html           # Base template
-    ├── index.html          # Landing page
-    ├── auth/               # Authentication templates
-    │   ├── login.html
-    │   └── register.html
-    └── mood/               # Mood-related templates
-        ├── dashboard.html
-        ├── history.html
-        ├── new_mood.html
-        └── recommendations.html
+app/
+├── blueprints/
+│   ├── auth/         # Authentication routes
+│   ├── errors/       # Error handling
+│   ├── main/         # Main routes
+│   ├── mood/         # Mood-related routes
+│   └── spotify/      # Spotify integration
+├── models/           # Database models
+├── forms/            # WTForms definitions
+├── services/         # Business logic services
+├── static/           # Static files (CSS, JS)
+└── templates/        # Jinja2 templates
+tests/                # Test suite
+config.py             # Configuration settings
+run.py                # Application entry point
 ```
 
-## Final Deployment Checklist
+## Testing
 
-- [ ] Check all configurations and remove hardcoded values
-- [ ] Test all features locally
-- [ ] Set up proper database migrations
-- [ ] Configure production-level logging
-- [ ] Set up environment variables on deployment platform
-- [ ] Enable HTTPS for secure connections
-- [ ] Set up database backups
+Run tests with pytest:
+
+```
+pytest
+```
+
+Generate a coverage report:
+
+```
+pytest --cov=app
+```
+
+## Deployment
+
+### Docker
+
+Build and run using Docker:
+
+```
+docker build -t musicapp .
+docker run -p 5000:5000 musicapp
+```
+
+### Heroku
+
+Deploy to Heroku:
+
+```
+heroku create
+git push heroku main
+heroku run flask db upgrade
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Open a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- Spotify Web API for music data
+- Flask and its extension developers
+- Bootstrap for the responsive design

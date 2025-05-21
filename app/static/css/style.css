@@ -1,0 +1,81 @@
+/* Base styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px;
+    padding: 8px 16px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #6200ea;
+    border-color: #6200ea;
+}
+
+.btn-primary:hover {
+    background-color: #5000d0;
+    border-color: #5000d0;
+}
+
+/* Form styles */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    border-color: #6200ea;
+    box-shadow: 0 0 0 0.25rem rgba(98, 0, 234, 0.25);
+}
+
+/* Footer styles */
+footer {
+    margin-top: auto;
+    padding: 20px 0;
+}
+
+/* Mood section */
+.mood-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.mood-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Profile styles */
+.img-thumbnail {
+    border-radius: 50%;
+} 

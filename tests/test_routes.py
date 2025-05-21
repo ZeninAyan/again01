@@ -68,4 +68,4 @@ def test_protected_route_redirect(client):
     
     response = client.get('/profile', follow_redirects=True)
     assert response.status_code == 200
-    assert b'login' in response.data.lower() 
+    assert b'login' in response.data.lower()

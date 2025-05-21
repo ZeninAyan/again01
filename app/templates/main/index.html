@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home | {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron py-5">
+        <h1 class="display-4">Welcome to Music Mood App</h1>
+        <p class="lead">Discover music that matches your mood and create personalized playlists.</p>
+        <hr class="my-4">
+        <p>Connect with Spotify and start your musical journey.</p>
+        {% if not current_user.is_authenticated %}
+            <a class="btn btn-primary btn-lg" href="{{ url_for('auth.login') }}">Get Started</a>
+        {% else %}
+            <a class="btn btn-primary btn-lg" href="{{ url_for('mood.index') }}">Find Music</a>
+        {% endif %}
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mood Based</h5>
+                    <p class="card-text">Our app uses advanced algorithms to match music with your current mood.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Spotify Integration</h5>
+                    <p class="card-text">Seamlessly connect with your Spotify account to access millions of songs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Save Favorites</h5>
+                    <p class="card-text">Create and save playlists to enjoy later or share with friends.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
