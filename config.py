@@ -19,37 +19,10 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
     
-    # Default to SQLite for development simplicity
-    DB_USE_SQLITE = os.environ.get('DB_USE_SQLITE', 'true').lower() in ('true', 'yes', '1')
+    # SQLite Configuration
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///app.db'
+    logger.info("Using SQLite database")
     
-    # PostgreSQL Configuration
-    DB_USER = os.environ.get('DB_USER') or 'postgres'
-    DB_PASSWORD = os.environ.get('DB_PASSWORD') or 'fuckUpostgre01'
-    DB_HOST = os.environ.get('DB_HOST') or 'localhost'
-    DB_PORT = os.environ.get('DB_PORT') or '5432'
-    DB_NAME = os.environ.get('DB_NAME') or 'musicapp'
-    
-    # Build connection string
-    POSTGRES_URI = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-    
-    # If explicitly set to use SQLite or if PostgreSQL connection fails, use SQLite
-    if DB_USE_SQLITE:
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///app.db'
-        logger.info("Using SQLite database as specified in environment")
-    else:
-        # Try PostgreSQL connection first, fallback to SQLite
-        try:
-            from sqlalchemy import create_engine
-            engine = create_engine(POSTGRES_URI, pool_pre_ping=True)
-            connection = engine.connect()
-            connection.close()
-            SQLALCHEMY_DATABASE_URI = POSTGRES_URI
-            logger.info("Successfully connected to PostgreSQL database")
-        except Exception as e:
-            logger.warning(f"PostgreSQL connection failed: {e}")
-            logger.info("Falling back to SQLite database")
-            SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///app.db'
-        
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Spotify API credentials
@@ -70,8 +43,8 @@ class ProductionConfig(Config):
     TESTING = False
     LOG_LEVEL = logging.ERROR
     
-    # Force PostgreSQL in production
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or Config.POSTGRES_URI
+    # Use SQLite in production as well
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///app.db'
     
     # Additional security settings
     SESSION_COOKIE_SECURE = True

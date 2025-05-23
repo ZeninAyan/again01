@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: musicapp
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+    disk:
+      name: sqlite-data
+      mountPath: /opt/render/project/src/instance
+      sizeGB: 1
+    autoDeploy: true
+    healthCheckPath: / 
