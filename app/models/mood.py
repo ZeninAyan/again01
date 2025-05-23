@@ -11,7 +11,7 @@ class MoodEntry(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     playlist_id = db.Column(db.String(100), nullable=True)  # Spotify playlist ID if saved
     track_ids = db.Column(db.Text, nullable=True)  # Comma-separated Spotify track IDs
-    metadata = db.Column(JSON, nullable=True)  # Additional data for analysis
+    mood_metadata = db.Column(JSON, nullable=True)  # Additional data for analysis
     
     def __repr__(self):
         return f'<MoodEntry {self.mood} by User {self.user_id}>'
