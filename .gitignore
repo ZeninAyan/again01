@@ -23,12 +23,16 @@ var/
 # Flask
 instance/
 .webassets-cache
-app.db
+*.db
 
 # Virtual Environment
 venv/
 ENV/
 .env
+
+# Environment files
+.env
+.flaskenv
 
 # IDE
 .idea/
@@ -41,4 +45,8 @@ ENV/
 Thumbs.db
 
 # Spotify
-.cache-* 
+.cache-*
+
+# Logs
+logs/
+*.log 

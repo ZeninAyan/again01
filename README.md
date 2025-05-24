@@ -13,21 +13,19 @@ A Flask-based web application that helps users discover music based on their cur
 
 ## Technology Stack
 
-- **Backend**: Python 3.11+, Flask 3.1.1
-- **Database**: PostgreSQL, SQLAlchemy
+- **Backend**: Python 3.9+, Flask 3.1.1
+- **Database**: SQLite (or PostgreSQL)
 - **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
-- **Authentication**: Flask-Login
+- **Authentication**: Flask-Login, JWT
 - **API Integration**: Spotify Web API
-- **Testing**: Pytest, Coverage
-- **CI/CD**: GitHub Actions
-- **Deployment**: Docker, Heroku
+- **Testing**: Pytest
+- **Deployment**: Render.com
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.11+
-- PostgreSQL
+- Python 3.9+
 - Spotify Developer Account
 
 ### Local Development Setup
@@ -38,99 +36,91 @@ A Flask-based web application that helps users discover music based on their cur
    cd musicapp/backend
    ```
 
-2. Create and activate a virtual environment:
+2. Run the setup script:
    ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   # On Windows
+   setup_env.bat
+   
+   # On Linux/Mac
+   bash render_build.sh
+   ```
+   
+   This will:
+   - Create a virtual environment
+   - Install dependencies
+   - Set up a .env file from sample.env
+   - Create the SQLite database
+
+3. Edit the .env file with your actual configuration:
+   ```
+   # Flask settings
+   FLASK_APP=run.py
+   FLASK_ENV=development
+   FLASK_DEBUG=1
+
+   # Security
+   SECRET_KEY=your_very_secure_secret_key_here
+   JWT_SECRET_KEY=your_jwt_secret_key_here
+
+   # Database
+   DATABASE_URI=sqlite:///app.db
+
+   # Spotify API (replace with your actual keys)
+   SPOTIFY_CLIENT_ID=your_spotify_client_id_here
+   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret_here
+   SPOTIFY_REDIRECT_URI=http://localhost:5000/callback
    ```
 
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. Set up environment variables in a `.env` file:
-   ```
-   SECRET_KEY=your_secret_key
-   DB_USER=postgres
-   DB_PASSWORD=your_password
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_NAME=musicapp
-   SPOTIFY_CLIENT_ID=your_spotify_client_id
-   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-   SPOTIFY_REDIRECT_URI=http://localhost:5000/spotify/callback
-   ```
-
-5. Initialize the database:
-   ```
-   flask db init
-   flask db migrate -m "Initial migration"
-   flask db upgrade
-   ```
-
-6. Run the application:
+4. Run the application:
    ```
    flask run
    ```
 
-7. The application should now be running at `http://localhost:5000`
+5. The application should now be running at `http://localhost:5000`
+
+## Deployment to Render.com
+
+1. Push your code to a GitHub repository
+
+2. Sign up for Render.com
+
+3. Connect your GitHub repository to Render
+
+4. Create a new Web Service and point it to your repository
+
+5. The render.yaml file will automatically configure your application:
+   - Set up Python 3.9.18
+   - Install dependencies
+   - Configure environment variables
+   - Set up a persistent disk for SQLite data
+   - Deploy the application
 
 ## Project Structure
 
 The project follows a modular structure using Flask Blueprints:
 
 ```
-app/
-├── blueprints/
-│   ├── auth/         # Authentication routes
-│   ├── errors/       # Error handling
-│   ├── main/         # Main routes
-│   ├── mood/         # Mood-related routes
-│   └── spotify/      # Spotify integration
-├── models/           # Database models
-├── forms/            # WTForms definitions
-├── services/         # Business logic services
-├── static/           # Static files (CSS, JS)
-└── templates/        # Jinja2 templates
-tests/                # Test suite
-config.py             # Configuration settings
-run.py                # Application entry point
-```
-
-## Testing
-
-Run tests with pytest:
-
-```
-pytest
-```
-
-Generate a coverage report:
-
-```
-pytest --cov=app
-```
-
-## Deployment
-
-### Docker
-
-Build and run using Docker:
-
-```
-docker build -t musicapp .
-docker run -p 5000:5000 musicapp
-```
-
-### Heroku
-
-Deploy to Heroku:
-
-```
-heroku create
-git push heroku main
-heroku run flask db upgrade
+/
+├── app.py              # Application factory
+├── config.py           # Configuration settings
+├── extensions.py       # Flask extensions
+├── run.py              # Application entry point
+├── routes/             # Route blueprints
+│   ├── auth.py         # Authentication routes
+│   ├── mood.py         # Mood-related routes
+│   ├── spotify.py      # Spotify integration
+│   └── api.py          # API routes
+├── models/             # Database models
+├── forms/              # Form definitions
+├── services/           # Business logic services
+├── static/             # Static files (CSS, JS)
+├── templates/          # Jinja2 templates
+├── tests/              # Test suite
+├── instance/           # SQLite database
+├── sample.env          # Sample environment variables
+├── requirements.txt    # Python dependencies
+├── render.yaml         # Render.com configuration
+└── render_build.sh     # Build script for Render
 ```
 
 ## Contributing

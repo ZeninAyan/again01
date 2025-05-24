@@ -2,6 +2,9 @@
 # Exit on error
 set -o errexit
 
+# Set environment to production
+export FLASK_ENV=production
+
 # Create virtual environment if it doesn't exist
 if [ ! -d "venv" ]; then
   echo "Creating virtual environment..."
